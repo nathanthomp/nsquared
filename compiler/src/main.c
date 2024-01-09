@@ -6,11 +6,14 @@
 #define TOKEN_BUFF_SIZE 256
 
 typedef enum {
-    UNKNOWN_TOKEN = 0,
+    END_TOKEN = 0,
+    NEWLINE_TOKEN,
+    UNKNOWN_TOKEN,
     UNSUPPORTED_TOKEN,
     NUMBER_TOKEN,
+    SPACE_TOKEN,
     BLANK_TOKEN,
-	LETTER_TOKEN,
+    LETTER_TOKEN,
     PLUS_TOKEN,
     MINUS_TOKEN,
     STAR_TOKEN,
@@ -23,9 +26,10 @@ typedef enum {
 
 typedef struct {
     Token_Type type;
-    char text;
+    char *text;
 } Token;
 
+/*
 Token *next_token(int *pos, const char *input) {
 	
 	// To print the pointer: *pos
@@ -44,33 +48,15 @@ Token *next_token(int *pos, const char *input) {
 		tok->type = NUMBER_TOKEN;
 	} else if (isalpha(current)) { 
 		switch (current) {
-			case '+':
-				tok->type = PLUS_TOKEN;
-				break;
-			case '-':
-				tok->type = MINUS_TOKEN;
-				break;
-			case '*':
-				tok->type = STAR_TOKEN;
-				break;
-			case '/':
-				tok->type = SLASH_TOKEN;
-				break;
-			case '{':
-				tok->type = LBRACK_TOKEN;
-				break;
-			case '}':
-				tok->type = RBRACK_TOKEN;
-				break;
-			case '(':
-				tok->type = LPAREN_TOKEN;
-				break;
-			case ')':
-				tok->type = RPAREN_TOKEN;
-				break;
-			default:
-				tok->type = LETTER_TOKEN;
-				break;
+			case '+': tok->type = PLUS_TOKEN; break;
+			case '-': tok->type = MINUS_TOKEN; break;
+			case '*': tok->type = STAR_TOKEN; break;
+			case '/': tok->type = SLASH_TOKEN; break;
+			case '{': tok->type = LBRACK_TOKEN; break;
+			case '}': tok->type = RBRACK_TOKEN; break;
+			case '(': tok->type = LPAREN_TOKEN; break;
+			case ')': tok->type = RPAREN_TOKEN; break;
+			default: tok->type = LETTER_TOKEN; break;
 		}
 	} else {
 		tok->type = UNKNOWN_TOKEN;
@@ -79,18 +65,67 @@ Token *next_token(int *pos, const char *input) {
 	(*pos)++;
 	return tok;
 }
+*/
+
+typedef struct {
+    size_t pos;
+    const char* content;
+} Lexer;
+
+Token *lexer_next(Lexer *lex);
+
+Token_Type lexer_peek(Lexer *lex) {
+    return lexer_next(lex)->type;
+}
+
+Token *lexer_next(Lexer *lex) {
+    Token *tok = (Token*)malloc(sizeof(Token));
+    if (lex->pos < strlen(lex->content)) {
+        char current = lex->content[lex->pos];
+        if (isspace(current)) {
+            free(tok);
+            lex->pos++;
+            tok = lexer_next(lex);
+        } else if (isdigit(current)) {
+            while (lexer_peek(lex) == TOKEN_NUMBER) {
+            
+            }
+            tok->type = NUMBER_TOKEN;
+            tok->text = "NUMBER";
+        } else if (isalpha(current)) {
+            tok->type = LETTER_TOKEN;
+            tok->text = "LETTER"; // Will have to convert char to str
+        } else {
+            tok->type = UNSUPPORTED_TOKEN;
+            tok->text = "UNSUPPORTED";
+        }
+        lex->pos++;
+    } else {
+        tok->type = END_TOKEN;
+        tok->text = "END";
+    }
+    return tok;
+}
+
+Lexer *lexer_init(char *input) {
+    Lexer *lex = (Lexer*)malloc(sizeof(Lexer));
+    lex->pos = 0;
+    lex->content = input;
+    return lex;
+}
 
 int main(int argc, char **argv) {
 	char input[INPUT_BUFF_SIZE];
     while (1) {
         printf("ns> ");
         fgets(input, INPUT_BUFF_SIZE, stdin);
-
-		int pos = 0;
-		while (input[pos] != '\n') {
-			Token *tok = next_token(&pos, input);
-			printf("Token:%c\tType:%d\n", tok->text, tok->type);
-		}
+        Lexer *lex = lexer_init(input);
+        Token *tok = lexer_next(lex);
+        printf("Token:%s\tType:%d\n", tok->text, tok->type);
+        while (tok->type != END_TOKEN) {
+            tok = lexer_next(lex);
+            printf("Token:%s\tType:%d\n", tok->text, tok->type);
+        }
     }
     return 0;
 }
