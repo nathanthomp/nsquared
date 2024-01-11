@@ -7,13 +7,9 @@
 
 typedef enum {
     END_TOKEN = 0,
-    NEWLINE_TOKEN,
-    UNKNOWN_TOKEN,
     UNSUPPORTED_TOKEN,
-    NUMBER_TOKEN,
     SPACE_TOKEN,
-    BLANK_TOKEN,
-    LETTER_TOKEN,
+    NUMBER_TOKEN,
     PLUS_TOKEN,
     MINUS_TOKEN,
     STAR_TOKEN,
@@ -21,7 +17,8 @@ typedef enum {
     LBRACK_TOKEN,
     RBRACK_TOKEN,
     LPAREN_TOKEN,
-    RPAREN_TOKEN
+    RPAREN_TOKEN,
+    LETTER_TOKEN
 } Token_Type;
 
 typedef struct {
@@ -29,53 +26,25 @@ typedef struct {
     char *text;
 } Token;
 
-/*
-Token *next_token(int *pos, const char *input) {
-	
-	// To print the pointer: *pos
-	// To increment the pointer: (*pos)++;
-	// printf("pos = %d\n", *pos);
-	// printf("strlen(input) = %ld\n", strlen(input));
-
-	// Number
-	// Operator
- 
-	Token *tok = (Token*)malloc(sizeof(Token));
-	char current = input[*pos];
-	tok-> text = current;
-
-	if (isdigit(current)) {
-		tok->type = NUMBER_TOKEN;
-	} else if (isalpha(current)) { 
-		switch (current) {
-			case '+': tok->type = PLUS_TOKEN; break;
-			case '-': tok->type = MINUS_TOKEN; break;
-			case '*': tok->type = STAR_TOKEN; break;
-			case '/': tok->type = SLASH_TOKEN; break;
-			case '{': tok->type = LBRACK_TOKEN; break;
-			case '}': tok->type = RBRACK_TOKEN; break;
-			case '(': tok->type = LPAREN_TOKEN; break;
-			case ')': tok->type = RPAREN_TOKEN; break;
-			default: tok->type = LETTER_TOKEN; break;
-		}
-	} else {
-		tok->type = UNKNOWN_TOKEN;
-	}
-
-	(*pos)++;
-	return tok;
-}
-*/
-
 typedef struct {
     size_t pos;
     const char* content;
 } Lexer;
 
-Token *lexer_next(Lexer *lex);
-
 Token_Type lexer_peek(Lexer *lex) {
-    return lexer_next(lex)->type;
+    if (lex->pos + 1 < strlen(lex->content)) {
+        char next = lex->content[lex->pos + 1];
+        if (isspace(next))
+            return SPACE_TOKEN;
+        else if (isdigit(next))
+            return NUMBER_TOKEN;
+        else if (isalpha(next))
+            return LETTER_TOKEN;
+        else
+            return UNSUPPORTED_TOKEN;
+    } else {
+        return END_TOKEN;
+    }
 }
 
 Token *lexer_next(Lexer *lex) {
@@ -87,17 +56,68 @@ Token *lexer_next(Lexer *lex) {
             lex->pos++;
             tok = lexer_next(lex);
         } else if (isdigit(current)) {
-            while (lexer_peek(lex) == TOKEN_NUMBER) {
-            
+            while (lexer_peek(lex) == NUMBER_TOKEN) {
+                lex->pos++;
             }
             tok->type = NUMBER_TOKEN;
             tok->text = "NUMBER";
         } else if (isalpha(current)) {
+            /*
+            int buff_index = 0;
+            char buff[TOKEN_BUFF_SIZE];
+            buff[buff_index] = current;
+            */
+            // while [:word:]
+            while (lexer_peek(lex) == LETTER_TOKEN) {
+                /*
+                current = lex->content[lex->pos++];
+                printf("current = %c\n", current);
+                printf("pos = %ld\n", lex->pos);
+                buff[buff_index++] = current;
+                */
+                lex->pos++;
+            }
             tok->type = LETTER_TOKEN;
-            tok->text = "LETTER"; // Will have to convert char to str
+            tok->text = "LETTER";
         } else {
-            tok->type = UNSUPPORTED_TOKEN;
-            tok->text = "UNSUPPORTED";
+            switch (current) {
+                case '+':
+                    tok->type = PLUS_TOKEN;
+                    tok->text = "+";
+                    break;
+                case '-':
+                    tok->type = MINUS_TOKEN;
+                    tok->text = "-";
+                    break;
+                case '*':
+                    tok->type = STAR_TOKEN;
+                    tok->text = "*";
+                    break;
+                case '/':
+                    tok->type = SLASH_TOKEN;
+                    tok->text = "/";
+                    break;
+                case '{':
+                    tok->type = LBRACK_TOKEN;
+                    tok->text = "{";
+                    break;
+                case '}':
+                    tok->type = RBRACK_TOKEN;
+                    tok->text = "}";
+                    break;
+                case '(':
+                    tok->type = LPAREN_TOKEN;
+                    tok->text = "(";
+                    break;
+                case ')':
+                    tok->type = RPAREN_TOKEN;
+                    tok->text = ")";
+                    break;
+                default:
+                    tok->type = UNSUPPORTED_TOKEN;
+                    tok->text = "UNSUPPORTED";
+                    break;
+            }
         }
         lex->pos++;
     } else {
