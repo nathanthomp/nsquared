@@ -1,0 +1,10 @@
+# The NSquared Compiler
+
+Grammar:
+```
+expr      : term (PLUS|MINUS term)*
+term      : factor (MULT|DIV factor)*
+factor    : INT|FLOAT
+          : PLUS|MINUS factor
+          : LPAREN expr RPAREN
+```
