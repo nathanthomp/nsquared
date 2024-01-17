@@ -9,7 +9,7 @@ $ nsc -r
 ``` 
 for REPL mode, or
 ```
-$ nsc filename.txt
+$ nsc filename.ns
 ```
 for file mode.
 
@@ -18,11 +18,3 @@ Documentation for the NSquared programming language can be found in the *nsquare
 
 ### Examples
 Documentation for the NSquared programming language can be found in the *nsquared/examples* directory.
-
-
-# TODO: Move to compiler/docs
-# The NSquared Compiler
-### Parser
-Members:
-- 
-
