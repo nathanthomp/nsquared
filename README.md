@@ -3,10 +3,10 @@ The NSquared Programming Language is a compiled language that is type safe.
 
 ### How to write your NSquared program
 To write a NSquared program...
-Documentation for the NSquared programming language can be found in the *nsquared/docs* directory.
+Documentation for the NSquared programming language can be found [here](docs/language/README.md)
 
 ### How to compile your NSquared file
-The NSquared compiler, located [here](docs/language/README.md), can be built by the command `$ make` when in the *nsquared/compiler* directory. To use the compiler enter the command:
+The NSquared compiler, located [here](docs/compiler/README.md), can be built by the command `$ make` when in the `nsquared/compiler` directory. To use the compiler enter the command:
 ```
 $ nsc -r
 ``` 
@@ -16,5 +16,4 @@ $ nsc filename.ns
 ```
 for file mode.
 
-### Examples
-Documentation for the NSquared programming language can be found in the *nsquared/examples* directory.
+### How to run your NSquared program
