@@ -24,3 +24,13 @@
 //  updates current
 // parser_syntax_error(Token_Type expected, Token_Type actual)
 //  prints message to stderr
+
+#include "lexer.h"
+
+typedef struct parser {
+    lexer_t *lex;
+} parser_t;
+
+parser_t *parser_init(const char *input);
+
+void parser_parse(parser_t *par);

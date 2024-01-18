@@ -24,4 +24,4 @@ clean:
 
 .PHONY: run
 run: nsc
-	./build/nsc
+	./build/nsc -r
