@@ -1,5 +1,7 @@
 # The NSquared Compiler
+The NSquared compiler will be implemented with a lexer for tokenization (lexical analysis), a parser for creating an abstract syntax tree (syntactic analysis), and a generator that will traverse the abstract syntax tree and create assembly code.
 
+[overview.image] here
 ## Parser
 
 Nodes:
@@ -57,6 +59,9 @@ typedef enum token_type {
 typedef struct token {
           token_type_t type;
           char *value;
+          size_t start;
+          size_t end;
+          
 } token_t;
 ```
 Members:
