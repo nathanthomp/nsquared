@@ -1,6 +1,12 @@
 # The NSquared Compiler
 The NSquared compiler will be implemented with a lexer for tokenization (lexical analysis), a parser for creating an abstract syntax tree (syntactic analysis), and a generator that will traverse the abstract syntax tree and create assembly code.
 
+1. Take the input from user, pass the input to the parser
+2. Take the parser, use the input and create a lexer with the input
+3. Calling the parser_parse method will create an abstract syntax tree with the lexer
+
+---
+
 1. Take the input from user, use the lexer to create a singly linked list of token.
 2. Take singly linked list of token, use the parser to create a tree of ast nodes.
 3. Take tree of ast nodes, use the main method to determine if the tree represents a valid program.
