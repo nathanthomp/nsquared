@@ -1,19 +1,39 @@
 # The NSquared Compiler
 The NSquared compiler will be implemented with a lexer for tokenization (lexical analysis), a parser for creating an abstract syntax tree (syntactic analysis), and a generator that will traverse the abstract syntax tree and create assembly code.
 
-[overview.image] here
+1. Take the input from user, use the lexer to create a singly linked list of token.
+2. Take singly linked list of token, use the parser to create a tree of ast nodes.
+3. Take tree of ast nodes, use the main method to determine if the tree represents a valid program.
+4. If the tree does not represent a valid program, return error.
+5. Take the tree of ast nodes, use the generator to create an assembly file. 
+
+## Abstract Syntax Tree
+
+```c
+typedef enum ast_node_type {
+
+} ast_node_type_t
+
+typedef struct ast_node {
+          ast_node_type_t type;
+          union {
+                    number_node number_node
+          }
+} ast_node_t
+
+ast_node(ast_node_type_t type)
+ast_node number_node(Token *number)
+ast_node binary_operation_node(Token *left, Token *op, Token *right)
+ast_node unary_operation_node(Token *op, Token *number) 
+```
+
 ## Parser
 
-Nodes:
-```c
-NUMBER(Token *number)
-BINARY_OPERATION(Token *left, Token *op, Token *right)
-UNARY_OPERATION(Token *op, Token *number) 
-```
 Structs:
 ```c
 typedef struct {
           Token *current;
+          ast_node *root;
 } Parser;
 ```
 Members:
@@ -43,6 +63,8 @@ typedef struct lexer {
 Members:
 ```c
 void lexer_init() // updates content
+void lexer_tokenize()
+          
 void lexer_advance() // increments pos and updates current
 void lexer_next_token() // returns a token struct and advances lexer
 void lexer_char_error() // prints message to stderr
@@ -52,16 +74,12 @@ void lexer_char_error() // prints message to stderr
 
 Structs:
 ```c
-typedef enum token_type {
-          
-} token_type_t;
-
 typedef struct token {
           token_type_t type;
           char *value;
           size_t start;
           size_t end;
-          
+          token_t *next;
 } token_t;
 ```
 Members:
