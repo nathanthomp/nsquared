@@ -56,6 +56,18 @@ term      : factor (MULT|DIV factor)*
 factor    : INT|FLOAT
           : PLUS|MINUS factor
           : LPAREN expr RPAREN
+
+or
+
+expr      : term (PLUS|MINUS term)*
+          : KEYWORD IDENTIFIER EQUAL expr
+term      : factor (MULT|DIV factor)*
+factor    : PLUS|MINUS factor
+          : power
+power     : atom (POW factor)* // Shouldnt be atom (expr)??
+
+atom      : LPAREN expr RPAREN
+          : INT|FLOAT|IDENTIFIER
 ```
 
 ## Lexer
