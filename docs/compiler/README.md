@@ -1,8 +1,24 @@
 # The NSquared Compiler
+
+### How It Works
 The NSquared compiler will be implemented with a lexer for lexical analysis, a parser for syntactic analysis, and a generator that will will create target code.
 
-The lexer takes the input from the user and tokenizes it to create tokens that will represent the words of the NSquared language. The NSquared compiler 
+The lexer takes the input from the user and tokenizes it to create tokens that will represent the words of the NSquared language. The NSquared compiler lexer component is responsible for handling the input, and creating a singly linked list of tokens.
 
+The parser then takes the singly linked list of tokens and creates an abstract syntax tree of nodes.
+
+### Files
+```
+src/
+          main.c
+          lexer.c
+          parser.c
+          include/
+                    token.h
+                    lexer.h
+                    parser.h
+                    node.h
+```
 ---
 ---
 ---
@@ -50,21 +66,12 @@ ast_node unary_operation_node(Token *op, Token *number)
 
 ## Parser
 
-Structs:
-```c
-typedef struct {
-          Token *current;
-          ast_node *root;
-} Parser;
-```
-Members:
 ```c
 void parser_init() // "pass in tokens"
 void parser_parse() // creates "program" node to begin parsing
 void parser_advance() // updates current token
 void parser_syntax_error(Token_Type expected, Token_Type actual) // prints message to stderr
 ```
-Grammar:
 ```
 expr      : term (PLUS|MINUS term)*
 term      : factor (MULT|DIV factor)*
@@ -86,17 +93,10 @@ atom      : LPAREN expr RPAREN
 ```
 
 ## Lexer
-
-Structs:
-```c
-typedef struct lexer {
-          Token *current;
-} lexer_t;
-```
-Members:
 ```c
 void lexer_init() // updates content
-void lexer_tokenize()
+token_t lexer_tokenize(const char *input)
+
           
 void lexer_advance() // increments pos and updates current
 void lexer_next_token() // returns a token struct and advances lexer
@@ -154,13 +154,9 @@ typedef struct token {
           char *value;
           size_t start;
           size_t end;
+          size_t line;
           token_t *next;
 } token_t;
-```
-```c
-token_t *token_init(token_type_t type, char *value)
-token_t *token_init(token_type_t type)
-_Bool token_is_match(token_type_t this, token_type_t that)
 ```
 
 | Name | Description | Examples |
