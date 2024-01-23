@@ -1,5 +1,13 @@
 # The NSquared Compiler
-The NSquared compiler will be implemented with a lexer for tokenization (lexical analysis), a parser for creating an abstract syntax tree (syntactic analysis), and a generator that will traverse the abstract syntax tree and create assembly code.
+The NSquared compiler will be implemented with a lexer for lexical analysis, a parser for syntactic analysis, and a generator that will will create target code.
+
+The lexer takes the input from the user and tokenizes it to create tokens that will represent the words of the NSquared language. The NSquared compiler 
+
+---
+---
+---
+
+---
 
 1. Take the input from user, pass the input to the parser
 2. Take the parser, use the input and create a lexer with the input
@@ -13,20 +21,27 @@ The NSquared compiler will be implemented with a lexer for tokenization (lexical
 4. If the tree does not represent a valid program, return error.
 5. Take the tree of ast nodes, use the generator to create an assembly file. 
 
-## Abstract Syntax Tree
+## Node
 
 ```c
-typedef enum ast_node_type {
+typedef enum node_type {
+          NUMBER,
+          BINARY_OP,
+          UNARY_OP
+} node_type_t
 
-} ast_node_type_t
-
-typedef struct ast_node {
-          ast_node_type_t type;
+typedef struct node {
+          node_type_t type;
           union {
-                    number_node number_node
+                    number_node node1
+                    binary_op_node node2
+                    unary_op_node node3
           }
-} ast_node_t
+} node_t
+```
 
+
+```
 ast_node(ast_node_type_t type)
 ast_node number_node(Token *number)
 ast_node binary_operation_node(Token *left, Token *op, Token *right)
@@ -89,9 +104,51 @@ void lexer_char_error() // prints message to stderr
 ```
 
 ## Token
-
-Structs:
 ```c
+typedef enum token_type {
+          // IDENTIFIER
+          IDENTIFIER_TOKEN,       // [a-zA-Z]+
+
+          // KEYWORD
+          IF_KEY_TOKEN,           // if
+          ELSE_KEY_TOKEN,         // else
+          WHILE_KEY_TOKEN,        // while
+          RETURN_KEY_TOKEN,       // return
+          INT_KEY_TOKEN,          // int
+          FLOAT_KEY_TOKEN,        // float
+          BOOL_KEY_TOKEN,         // bool
+          CHAR_KEY_TOKEN,         // char
+
+          // SEPERATOR
+          LPAREN_SEP_TOKEN,       // (
+          RPAREN_SEP_TOKEN,       // )
+          LBRACK_SEP_TOKEN,       // {
+          RBRACK_SEP_TOKEN,       // }
+          SEMI_SEP_TOKEN,         // ;
+
+          // OPERATOR
+          PLUS_OP_TOKEN,          // +
+          MINUS_OP_TOKEN,         // -
+          STAR_OP_TOKEN,          // *
+          SLASH_OP_TOKEN,         // /
+          MOD_OP_TOKEN,           // %
+
+          // TODO
+          ASSIGN_OP_TOKEN,        // =
+          GREATER_THAN_OP_TOKEN,  // >
+          LESS_THAN_OP_TOKEN,     // <
+          //TODO
+
+          // LITERAL
+          INT_LIT_TOKEN,          // [0-9]+
+          FLOAT_LIT_TOKEN,        // [0-9]+.[0-9]+
+          BOOL_LIT_TOKEN,         // [true|false]
+          CHAR_LIT_TOKEN,         // [a-zA-Z0-9]+
+
+          // END
+          END_TOKEN               // '\n'|EOF    
+}
+
 typedef struct token {
           token_type_t type;
           char *value;
@@ -100,7 +157,6 @@ typedef struct token {
           token_t *next;
 } token_t;
 ```
-Members:
 ```c
 token_t *token_init(token_type_t type, char *value)
 token_t *token_init(token_type_t type)
