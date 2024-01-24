@@ -1,4 +1,8 @@
-# NSquared programming language
+# NSquared Programming Language
+
+## Keywords
+
+
 
 ## Data Types
 | Type | Keyword | Size | Range |
@@ -18,4 +22,4 @@ The Float type has a size of 32 bits, 1 bit for the sign, 23 bits for the matiss
 The Boolean type has a size of 1 bit. This data type represents propositional logic, where 1 is for true, and 0 for false.
 
 ### Character
-The Character type has a size of 8 bits. This data type represents each of the 
+The Character type has a size of 8 bits. This data type represents each of the character codes from the ASCII table.
