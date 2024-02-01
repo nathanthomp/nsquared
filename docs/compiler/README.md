@@ -14,6 +14,27 @@ src/
 
 ### How It Works
 The NSquared compiler will be implemented with a lexer for lexical analysis, a parser for syntactic analysis, and a generator for target code creation.
+```c
+/*
+** main.c -- compiler main
+*/
+#include "lexer.h"
+
+int main(int argc, char *argv[])
+{
+          if (argc != 2) {
+                    fprintf(stderr, "USAGE: nsc filename");
+                    return 1;
+          }
+
+          // get input string
+
+          tokenize(input);
+          for (current = res; current != NULL, current = current->next) {
+
+          }
+}
+```
 
 ## 1. Lexical Analysis
 Starting with a string representing input, we tokenize the string to extract all the possible words and create tokens of them.
@@ -23,7 +44,7 @@ Starting with a string representing input, we tokenize the string to extract all
 ### Token
 ```c
 /**
- * Token instance
+ * Token instance.
  */
 struct token {
           token_type type;            // type of token
@@ -31,7 +52,7 @@ struct token {
           size_t end;                 // end position of token
 
           struct token *next;         // linked list, next node
-}
+};
 
 ```
 
@@ -78,7 +99,13 @@ enum token_type {
 
           // END
           END_TOKEN               // '\n'|EOF    
-}
+};
+```
+```c
+/**
+ * Tokenizes input into a linked list of token.
+ */
+int tokenize(const char *input, 
 ```
 
 | Name | Description | Types |
