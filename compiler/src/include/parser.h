@@ -27,10 +27,4 @@
 
 #include "lexer.h"
 
-typedef struct parser {
-    lexer_t *lex;
-} parser_t;
-
-parser_t *parser_init(const char *input);
-
 void parser_parse(parser_t *par);
