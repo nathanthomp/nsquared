@@ -1,15 +1,11 @@
 # The Nsquared Programming Language
-The Nsquared programming language is a statically typed language that uses the abstraction of *Expressions* and *Statements*. Compiler built in C.
-
-Class: Imperative
+The Nsquared programming language is a statically typed, imperative language that uses the abstraction of *Expressions* and *Statements*. Compiler built in C.
 
 Sub Class: Procedural or Object-Oriented
 
-Rule: Statically Typed
-
 ## Context-Free Grammar (Syntax)
 ```
-Statement
+Statement - Execution
     statement := declaration | if | ifelse | while | return
       declaration := type label = expression semi
         type := user | primative
@@ -20,19 +16,18 @@ Statement
       ifelse := if ( expression ) { statement semi } else { statement semi }
       while := while ( expression ) { statement semi }
       return := return expression semi
-    
+
+Expression - Evaluation
+    expression := 
 ```
-Examples of *Statements*
-- Int N = 0;
 
-Examples of *Expressions*
+## Type System
 
-## Types
+### 1. User Defined Types
 
-### User Defined Types
 - User defined types must start with a capital letter and follow pascal case
 
-### Primative Types
+### 2. Primative Types
 | Type | Keyword | Size | Range |
 | --- | --- | --- | --- |
 | Integer |  | 32 bit | -2,147,483,647 to 2,147,483,647 |
@@ -40,19 +35,20 @@ Examples of *Expressions*
 | Boolean |  | 1 bit  | 0 to 1 |
 | Character |  | 8 bit | 0 to 255 |
 
-### Integer
-The Integer type has a size of 32 bit. This data type represents the set of Natural Numbers with a lower bound of -2,147,483,647 and an upper bound of 2,147,483,647.
 
-### Float
-The Float type has a size of 32 bits, 1 bit for the sign, 23 bits for the matissa, and 8 bits for the exponent. This data type represents the set of Real Numbers with a lower bound of 0.000000000000000000000000000000000000034 and an upper bound of 339,999,999,999,999,996,123,846,586,046,231,871,488.
+The **Integer** type has a size of 32 bit. This data type represents the set of Natural Numbers with a lower bound of -2,147,483,647 and an upper bound of 2,147,483,647.
 
-### Boolean 
-The Boolean type has a size of 1 bit. This data type represents propositional logic, where 1 is for true, and 0 for false.
+The **Float** type has a size of 32 bits, 1 bit for the sign, 23 bits for the matissa, and 8 bits for the exponent. This data type represents the set of Real Numbers with a lower bound of 0.000000000000000000000000000000000000034 and an upper bound of 339,999,999,999,999,996,123,846,586,046,231,871,488.
 
-### Character
-The Character type has a size of 8 bits. This data type represents each of the character codes from the ASCII table.
+The **Boolean** type has a size of 1 bit. This data type represents propositional logic, where 1 is for true, and 0 for false.
 
-# Operations
+The **Character** type has a size of 8 bits, representing one byte of unsigned data. This data type represents each of the character codes from the ASCII table.
+
+## Scopes
+
+The Nsquared programming language does not have public and private members to a Type, but instead defines these members by their scope.
+
+## Operations
 
 ### How to write your Nsquared program
 To write a Nsquared program...
