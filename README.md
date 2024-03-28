@@ -28,12 +28,26 @@ Expression - Evaluation
 - User defined types must start with a capital letter and follow pascal case
 
 ### 2. Primative Types
+
+Categories:
+Signed, Unsigned, 
+
 | Type | Keyword | Size | Range |
 | --- | --- | --- | --- |
 | Integer |  | 32 bit | -2,147,483,647 to 2,147,483,647 |
+| Long |  | 64 bit | |
 | Float |  | 32 bit | 3.4x10^-38 to 3.4x10^38 |
 | Boolean |  | 1 bit  | 0 to 1 |
 | Character |  | 8 bit | 0 to 255 |
+
+Signed / Unsigned 
+Total size of Type
+
+Whole Numbers:
+8 bits
+16 bits
+32 bits
+64 bits
 
 
 The **Integer** type has a size of 32 bit. This data type represents the set of Natural Numbers with a lower bound of -2,147,483,647 and an upper bound of 2,147,483,647.
