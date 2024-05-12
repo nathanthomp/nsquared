@@ -4,7 +4,7 @@ A modern twist on the C programming language, while keeping system-level functio
 [//]: # (What is the c squared programming language trying to accomplish?)
 ## Objective
 To make a programming language that mimicks the C programming language, but adds modern programming language features. 
-Keeping the system-level functionality but adding features such as abstraction, encapsulation, inheiritance, polymorphism, generics, and type safety.
+Keeping the system-level functionality but adding features such as abstraction, encapsulation, inheiritance, polymorphism, generics, type safety, standard library support, .
  
 [//]: # (What do we like and dislike about the C programming language?)
 ### Advantages to the C Programming Language
@@ -80,3 +80,15 @@ Despite these challenges, C remains a fundamental language for systems programmi
 8. **Functional Programming:** Many modern languages embrace functional programming concepts. Functional languages like Haskell and Scala allow developers to write concise, expressive code using immutability and higher-order functions.
 9. **Integration with Existing Systems:** Modern languages often have robust APIs and libraries for integrating with other technologies. For example, Java remains popular for enterprise applications due to its extensive ecosystem and compatibility with existing systems.
 10. **Career Opportunities:** Learning a modern language can enhance your career prospects. Employers value developers who are proficient in languages that align with current industry trends.
+
+## Concept
+The idea of the C Squared programming language is to take the existing C syntax and add modern day features to it.
+These modern day features include ...
+
+Adding abstraction, encapsulation, inheiritance, and polymorphism increases the programming languages productivity, compared to C.
+
+Creating a standardized library in the C Squared programming language can increase the security of program by allowing for bound checking, memory allocation, and defined behavior.
+
+Utilizing a compiler written in C#, the C Squared programming language can support a wide variety of platforms.
+
+When running C Squared files, the underlying implementation is in C, so the C Squared programming language keeps its original 
