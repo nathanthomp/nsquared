@@ -1,5 +1,5 @@
 # The C Squared Programming Language
-A modern twist on the C programming language, while keeping system-level functionality.
+A modern twist on the C programming language, while keeping system-level functionality. 
 
 [//]: # (What is the c squared programming language trying to accomplish?)
 ## Objective
